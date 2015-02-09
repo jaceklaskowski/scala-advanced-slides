@@ -56,8 +56,8 @@
             <ul>
               <li>(tools) Advanced sbt</li>
               <li>(tools) specs2</li>
-              <li>(scala) for comprehension (scala)</li>
-              <li>(scala) Partial functions (scala)</li>
+              <li>(scala) for comprehension</li>
+              <li>(scala) Partial functions</li>
               <li>(scala) Futures</li>
               <li>(tools) Akka</li>
               <li>(tools) Spark</li>
@@ -80,16 +80,16 @@
           </section>
         </section>
 
+        <section>
+          <h1>Advanced sbt</h1>
+          <h3>(tools)</h3>
+        </section>
+
 				<section>
-          <section>
-            <h1>Advanced sbt</h1>
-            <h3>(tools)</h3>
-          </section>
+          <h2>Advanced sbt</h2>
 
           <section data-markdown>
             <script type="text/template">
-# Advanced sbt
-
 ## Quick and easy prototyping
   * `console`
   * `scalaVersion` for arbitrary Scala version
@@ -99,8 +99,6 @@
 
           <section data-markdown>
             <script type="text/template">
-# Advanced sbt
-
 ## Exercise
 * Using `Scala 2.11.5`
 * Instantiate `akka.actor.Actor` from `Akka 2.3.9`
@@ -110,9 +108,7 @@
 
           <section data-markdown>
             <script type="text/template">
-# Advanced sbt
-
-## Better development environment (1 of 2)
+## Improved Development Environment (1 of 2)
 
 * `project/*.sbt`
 * [sbt-updates](https://github.com/rtimush/sbt-updates)
@@ -123,9 +119,7 @@
 
           <section data-markdown>
             <script type="text/template">
-# Advanced sbt
-
-## Better development environment (2 of 2)
+## Improved Development Environment (2 of 2)
 
 * `project/*.sbt` - project-specific plugins
 * `~/.sbt/0.13/plugins` - global, project-agnostic plugins
@@ -134,8 +128,6 @@
 
           <section data-markdown>
             <script type="text/template">
-# Advanced sbt
-
 ## Exercise
 * Use the plugins
   * `dependencyUpdates` from sbt-updates
@@ -197,9 +189,9 @@ scala> val ns = 0 to 10
 ns: scala.collection.immutable.Range.Inclusive = Range(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
             </code></pre>
 
-            <p class="fragment roll-in" style="text-align: left;">What does the following expand to using <b>filter</b> and <b>map</b>?</p>
+            <p style="text-align: left;">What does the following expand to using <b>filter</b> and <b>map</b>?</p>
 
-            <pre class="fragment roll-in" style="max-width: none; width: 100%"><code class="scala">
+            <pre style="max-width: none; width: 100%"><code class="scala">
 for {
   n <- ns
   if n % 2 == 0
@@ -212,12 +204,13 @@ for {
 
           <section>
             <br>
+            <p style="text-align: left;">The answer</p>
             <pre style="max-width: none; width: 100%"><code class="scala">
 ns.filter(_ % 2 == 0)
             </code></pre>
 
             <br>
-            <p style="text-align: left;">The code</p>
+            <p style="text-align: left;">And the code</p>
 
             <pre style="max-width: none; width: 100%"><code class="scala">
 for {
@@ -247,7 +240,6 @@ scala> for {
 even.flatMap(x => odd.map(y => (x, y)))
             </code></pre>
 
-            <p class="fragment roll-in" style="text-align: left;">Czy można jeszcze prościej (trudniej dla czytelnika)?</p>
             <pre class="fragment roll-in" style="max-width: none; width: 100%"><code class="scala">
 even.flatMap(x => odd.map((x, _)))
             </code></pre>
