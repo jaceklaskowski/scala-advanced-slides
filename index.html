@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Scala's advanced programming tools</title>
+
+		<meta name="description" content="Scala's advanced programming tools">
+        <meta name="author" content="Jacek Laskowski">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+				<section class="intro" data-transition="zoom">
+					<h1>Scala Advanced</h1>
+					<h3>Advanced programming and tools</h3>
+					<h4>(5-hour tour)</h4>
+          <br>
+          <p>
+            <small>Created by <a href="http://jaceklaskowski.pl">Jacek Laskowski</a> / <a href="http://twitter.com/jaceklaskowski">@jaceklaskowski</a></small>
+          </p>
+				</section>
+
+        <section>
+          <section>
+            <h2>Agenda</h2>
+
+            <ul>
+              <li>(tools) Advanced sbt</li>
+              <li>(tools) specs2</li>
+              <li>(scala) for comprehension (scala)</li>
+              <li>(scala) Partial functions (scala)</li>
+              <li>(scala) Futures</li>
+              <li>(tools) Akka</li>
+              <li>(tools) Spark</li>
+              <li>(tools) Play Framework</li>
+              <li>(tools) Spray / Akka HTTP</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Schedule</h2>
+
+            <ul>
+              <li>12:00 - 13:00 </li>
+              <li>13:00 - 14:00 Przerwa obiadowa</li>
+              <li>14:00 - 15:00</li>
+              <li>15:10 - 16:00</li>
+              <li>16:10 - 17:00</li>
+              <li>17:10 - 18:00</li>
+            </ul>
+          </section>
+        </section>
+
+				<section>
+          <section>
+            <h1>Advanced sbt</h1>
+            <h3>(tools)</h3>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+# Advanced sbt
+
+## Quick and easy prototyping
+  * `console`
+  * `scalaVersion` for arbitrary Scala version
+  * `libraryDependencies` for arbitrary library, toolkit or framework using
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+# Advanced sbt
+
+## Exercise
+* Using `Scala 2.11.5`
+* Instantiate `akka.actor.Actor` from `Akka 2.3.9`
+* All in `Scala REPL`
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+# Advanced sbt
+
+## Better development environment (1 of 2)
+
+* `project/*.sbt`
+* [sbt-updates](https://github.com/rtimush/sbt-updates)
+* [sbt-dependency-graph](https://github.com/jrudolph/sbt-dependency-graph)
+* [sbt-assembly](https://github.com/sbt/sbt-assembly)
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+# Advanced sbt
+
+## Better development environment (2 of 2)
+
+* `project/*.sbt` - project-specific plugins
+* `~/.sbt/0.13/plugins` - global, project-agnostic plugins
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+# Advanced sbt
+
+## Exercise
+* Use the plugins
+  * `dependencyUpdates` from sbt-updates
+  * `dependencyGraph` from sbt-dependency-graph
+  * `assemble` from sbt-assembly
+            </script>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>specs2</h1>
+            <h3>(tools)</h3>
+            <br>
+            <p class="fragment roll-in">Friendly reminder: use the other slide deck</p>
+          </section>
+        </section>
+
+        <section>
+          <h1>for comprehension</h1>
+          <h3>(Scala)</h3>
+        </section>
+
+        <section>
+          <h2>for (sequence) comprehension</h2>
+
+          <section>
+            <h2>Syntax</h2>
+            <pre style="max-width: none; width: 100%"><code class="scala">
+for ( enumerators ) yield e
+            </code></pre>
+            <pre style="max-width: none; width: 100%"><code>
+for { enumerators } yield e
+            </code></pre>
+          </section>
+
+          <section>
+            <p style="text-align: left;">What is the type of the expression? Give REPL a try!</p>
+
+            <pre style="max-width: none; width: 100%"><code class="scala">
+scala> val ns = 0 to 10
+ns: scala.collection.immutable.Range.Inclusive = Range(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+scala> for {
+     |   n <- ns
+     | } yield n
+            </code></pre>
+
+            <pre class="fragment roll-in" style="max-width: none; width: 100%"><code class="scala">
+res0: scala.collection.immutable.IndexedSeq[Int] = Vector(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+            </code></pre>
+          </section>
+
+          <section>
+            <br>
+            <p style="text-align: left;">Given...</p>
+            <pre style="max-width: none; width: 100%"><code class="scala">
+scala> val ns = 0 to 10
+ns: scala.collection.immutable.Range.Inclusive = Range(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+            </code></pre>
+
+            <p class="fragment roll-in" style="text-align: left;">What does the following expand to using <b>filter</b> and <b>map</b>?</p>
+
+            <pre class="fragment roll-in" style="max-width: none; width: 100%"><code class="scala">
+for {
+  n <- ns
+  if n % 2 == 0
+} yield n
+            </code></pre>
+
+            <p class="fragment roll-in" style="text-align: left;">Give REPL a try!</p>
+
+          </section>
+
+          <section>
+            <br>
+            <pre style="max-width: none; width: 100%"><code class="scala">
+ns.filter(_ % 2 == 0)
+            </code></pre>
+
+            <br>
+            <p style="text-align: left;">The code</p>
+
+            <pre style="max-width: none; width: 100%"><code class="scala">
+for {
+  n <- ns
+  if n % 2 == 0
+} yield n
+            </code></pre>
+          </section>
+
+          <section>
+            <br>
+            <p style="text-align: left;">What does the following expand to using <b>flatMap</b> and <b>map</b>?</p>
+            <pre style="max-width: none; width: 100%"><code class="scala">
+scala> val even = 0 to 10 by 2
+even: scala.collection.immutable.Range = Range(0, 2, 4, 6, 8, 10)
+
+scala> val odd = 1 to 10 by 2
+odd: scala.collection.immutable.Range = Range(1, 3, 5, 7, 9)
+
+scala> for {
+     |   x <- even
+     |   y <- odd
+     | } yield (x, y)
+            </code></pre>
+
+            <pre class="fragment roll-in" style="max-width: none; width: 100%"><code class="scala">
+even.flatMap(x => odd.map(y => (x, y)))
+            </code></pre>
+
+            <p class="fragment roll-in" style="text-align: left;">Czy można jeszcze prościej (trudniej dla czytelnika)?</p>
+            <pre class="fragment roll-in" style="max-width: none; width: 100%"><code class="scala">
+even.flatMap(x => odd.map((x, _)))
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          <h1>Partial functions</h1>
+          <h3>(Scala)</h3>
+        </section>
+
+        <section>
+          <h2>Partial functions</h2>
+
+          <section>
+            <h2>scala.PartialFunction type</h2>
+            <pre style="max-width: none; width: 100%"><code class="scala">
+scala> val one: PartialFunction[Int, String] = { case 1 => "one" }
+one: PartialFunction[Int,String] = &lt;function1>
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Exercise</h2>
+            <p>
+              Review <a href="http://www.scala-lang.org/api/current/scala/PartialFunction.html">scala.PartialFunction</a> API
+            </p>
+          </section>
+
+          <section>
+            <h2>Exercise</h2>
+            <p>
+              Write a (partial) function that accepts custom type instances of <code>Person</code> case class
+              and prints out the value of the <code>name</code> field
+            </p>
+          </section>
+
+          <section>
+            <h2>Alternatives</h2>
+            <pre style="max-width: none; width: 100%"><code>
+scala> val f: Int => String = { case 1 => "one" }
+f: Int => String = &lt;function1>
+            </code></pre>
+            <pre class="fragment roll-in" style="max-width: none; width: 100%"><code>
+scala> val g: Function1[Int, String] = { case 1 => "one" }
+g: Int => String = &lt;function1>
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          <h2>Exercise</h2>
+
+          <p>Write implementation to let the Scala compiler compile the following code:</p>
+          <section>
+            <pre style="max-width: none; width: 100%"><code class="scala">
+scala> instancjaMojegoTypu match { case MojTyp(a,b) => a }
+res0: String = 1
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <h2>Exercise (without <b>case class</b>)</h2>
+
+          <p>Write implementation to let the Scala compiler compile the following code:</p>
+          <section>
+            <pre style="max-width: none; width: 100%"><code class="scala">
+scala> instancjaMojegoTypu match { case MojTyp(a,b) => a }
+res0: String = 1
+            </code></pre>
+          </section>
+        </section>
+
+        <!--
+        <section>
+          <h2>... template ...</h2>
+
+          <section>
+            <pre style="max-width: none; width: 100%"><code class="scala">
+
+            </code></pre>
+          </section>
+        </section>
+      --> 
+
+      <section data-background-image="images/end.jpg">
+        <!-- THAT'S IT FOLKS -->
+      </section>
+
+      <section style="text-align: left">
+        <h1>Questions?</h1>
+        <h3><a href="https://blog.jaceklaskowski.pl">Jacek Laskowski</a> / <a href="https://twitter.com/jaceklaskowski">@jaceklaskowski</a> / <a href="https://github.com/jaceklaskowski">GitHub</a></h3>
+      </section>
+
+      </div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
