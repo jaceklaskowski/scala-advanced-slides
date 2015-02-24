@@ -93,7 +93,9 @@
 ## Quick and easy prototyping
   * `console`
   * `scalaVersion` for arbitrary Scala version
-  * `libraryDependencies` for arbitrary library, toolkit or framework using
+  * `set [every] <setting-expression>`
+  * `libraryDependencies` for arbitrary library, toolkit or framework to use
+  * `test`, `compile`, project scopes
             </script>
           </section>
 
@@ -101,8 +103,8 @@
             <script type="text/template">
 ## Exercise
 * Using `Scala 2.11.5`
-* Instantiate `akka.actor.Actor` from `Akka 2.3.9`
-* All in `Scala REPL`
+* Instantiate `akka.actor.Actor` from `akka-actor 2.3.9` library
+* Use sbt shell and Scala REPL only
             </script>
           </section>
 
@@ -110,6 +112,7 @@
             <script type="text/template">
 ## Improved Development Environment (1 of 2)
 
+* `project/build.properties`
 * `project/*.sbt`
 * [sbt-updates](https://github.com/rtimush/sbt-updates)
 * [sbt-dependency-graph](https://github.com/jrudolph/sbt-dependency-graph)
@@ -122,17 +125,28 @@
 ## Improved Development Environment (2 of 2)
 
 * `project/*.sbt` - project-specific plugins
-* `~/.sbt/0.13/plugins` - global, project-agnostic plugins
+* `~/.sbt/0.13/plugins` - global, project-agnostic, system-wide plugins
             </script>
           </section>
 
           <section data-markdown>
             <script type="text/template">
 ## Exercise
-* Use the plugins
-  * `dependencyUpdates` from sbt-updates
-  * `dependencyGraph` from sbt-dependency-graph
-  * `assemble` from sbt-assembly
+
+* Use the plugins and execute commands
+ * `dependencyUpdates` from sbt-updates
+ * `dependencyGraph` from sbt-dependency-graph
+ * `assemble` from sbt-assembly
+            </script>
+          </section>
+
+          <section data-markdown>
+            <script type="text/template">
+## (Side) Exercise
+
+* Using `dependencyUpdates` from [sbt-updates](https://github.com/rtimush/sbt-updates), answer the question:
+
+  What's the latest version of `"org.apache.spark" % "spark-core"` library?
             </script>
           </section>
         </section>
@@ -264,6 +278,23 @@ scala> for {
             <p class="fragment roll-in" style="text-align: left;">Give REPL a try!</p>
           </section>
 
+          <section data-markdown>
+            <script type="text/template">
+## Exercise
+
+Given directed edges (tuples) and vertices (numbers), return all incoming edges for a vertex.
+Use for comprehension if possible.
+
+    val ends = Iterator.continually(Random.nextInt(5)).take(10).toList
+    // Vector((0,1), (1,0), (2,2), (3,1), (4,1), (5,0), (6,0), (7,4), (8,1), (9,3))
+    val edges = (0 to 10) zip ends
+
+    def e(v: Int) = ???
+
+    e(1) == Seq((0,1), (3,1), (4,1), (8,1))
+
+            </script>
+          </section>
         </section>
 
         <section>
@@ -334,6 +365,38 @@ res0: String = 1
           </section>
         </section>
 
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+## Akka
+            </script>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+## Spark
+            </script>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+## Play Framework
+            </script>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <script type="text/template">
+## Spray / Akka HTTP
+            </script>
+          </section>
+        </section>
+
         <!--
         <section>
           <h2>... template ...</h2>
@@ -344,7 +407,7 @@ res0: String = 1
             </code></pre>
           </section>
         </section>
-      --> 
+        --> 
 
       <section data-background-image="images/end.jpg">
         <!-- THAT'S IT FOLKS -->
